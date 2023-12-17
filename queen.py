@@ -4,15 +4,14 @@ from datetime import datetime
 import threading                    #used to create multiple threads for event based programming.
 import keyboard
 import numpy
-import dataMove.py
+
+# modules from same folder
+import dataMove
+import dataInteract
 
 #database connection information. hostname, username, password, database name.
 #change to ask user for username and password before implimentation.
 databaseHost = ["localhost", "root", "letmeinnow", "landscape"]
-
-# --------------------------------------------
-# movement functions--------------------------
-# --------------------------------------------
 
 
 # --------------------------------------------
@@ -33,7 +32,7 @@ def sendStatement(sqlInput):
     #run the SQL statement
     mycursor.execute(sqlInput)
 
-# function to sned an SQL statement to the database that retrieves information back
+# function to send an SQL statement to the database that retrieves information back
 def sendRequest(sqlInput):
     #connect to the database
     mydb = mysql.connector.connect (
