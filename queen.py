@@ -98,10 +98,28 @@ def updateTime():
                 timeArray[line[(0 + digitNum * 5)], line[1]] = 1
             digitNum = digitNum + 1
 
-        #query database to ping the landscape, build another array
-        stuff
+        #query database to ping the landscape size, build another array
+        cornerstones = mapSize()
+
+        #find the min and max coordinates for x and y on the field
+        xMin = 0
+        xMax = 0
+        yMin = 0
+        yMax = 0
+        for stone in cornerstones:
+            if (stone[0] < xMin):
+                xMin = stone[0]
+            if (stone[0] > xMax):
+                xMax = stone[0]
+            if (stone[1] < yMin):
+                yMin = stone[1]
+            if (stone[1] > yMax):
+                yMax = stone[1]
 
         #find the size of the current landscape, and increase the pattern size to match the landscape
+        xFieldSize = xMax - xMin
+        yFieldSize = yMax - yMin
+
 
         #find differences between what the landscape looks like and the built pattern
         
