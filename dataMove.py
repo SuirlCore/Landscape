@@ -1,3 +1,4 @@
-# this file encompases a module to govern movement of drones and queens across the database.
+# this file encompases a module to govern movement of objects across the database.
 
-def move:
+def move():
+    print("moves something")

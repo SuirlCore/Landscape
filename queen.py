@@ -1,4 +1,3 @@
-import mysql.connector
 import time
 from datetime import datetime
 import threading                    #used to create multiple threads for event based programming.
@@ -13,7 +12,6 @@ import dataInteract
 # --------------------------------------------
 # database manipulation functions-------------
 # --------------------------------------------
-
 
 # function to remove incomplete tasks on the database
 def clearTasks():
@@ -33,6 +31,18 @@ def mapLandscape():
     #entityID for "nothing" is "1"
     sqlInput = "SELECT xLoc, yLoc, zLoc FROM locations WHERE entityID != 1;"
     
+    #run the SQL statement
+    myresult = dataInteract.sendRequest(sqlInput)
+
+    return myresult
+
+# function to query the database for the coordinates of the corners for the field
+def mapSize():
+    print("pinging database for cornerstones.")
+
+    #create the SQL statement
+    sqlInput = "SELECT (xLoc, yLoc, zLoc) FROM locations WHERE entityID = 5"
+
     #run the SQL statement
     myresult = dataInteract.sendRequest(sqlInput)
 
@@ -90,9 +100,15 @@ def updateTime():
 
         #query database to ping the landscape, build another array
         stuff
+
+        #find the size of the current landscape, and increase the pattern size to match the landscape
+
         #find differences between what the landscape looks like and the built pattern
+        
         #generate tasks to remove blocks not needed
+        
         #generate tasks to add blocks that are needed
+        
         #upload all tasks to the database
 
         #if user input task is complete, finish this task after a loop is complete

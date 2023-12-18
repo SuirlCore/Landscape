@@ -1,3 +1,5 @@
+import mysql.connector
+
 #database connection information. hostname, username, password, database name.
 #change to ask user for username and password before implimentation.
 databaseHost = ["localhost", "root", "letmeinnow", "landscape"]
