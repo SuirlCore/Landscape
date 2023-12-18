@@ -9,45 +9,11 @@ import numpy
 import dataMove
 import dataInteract
 
-#database connection information. hostname, username, password, database name.
-#change to ask user for username and password before implimentation.
-databaseHost = ["localhost", "root", "letmeinnow", "landscape"]
-
 
 # --------------------------------------------
 # database manipulation functions-------------
 # --------------------------------------------
 
-# function to send an SQL statement to the database
-def sendStatement(sqlInput):
-   #connect to the database
-    mydb = mysql.connector.connect (
-        host = databaseHost[0],
-        user = databaseHost[1],
-	    password = databaseHost[2],
-	    database = databaseHost[3]
-    )
-    mycursor = mydb.cursor()
-
-    #run the SQL statement
-    mycursor.execute(sqlInput)
-
-# function to send an SQL statement to the database that retrieves information back
-def sendRequest(sqlInput):
-    #connect to the database
-    mydb = mysql.connector.connect (
-        host = databaseHost[0],
-        user = databaseHost[1],
-	    password = databaseHost[2],
-	    database = databaseHost[3]
-    )
-    mycursor = mydb.cursor()
-
-    #run the SQL statement
-    mycursor.execute(sqlInput)
-    myresult = mycursor.fetchall()
-
-    return myresult
 
 # function to remove incomplete tasks on the database
 def clearTasks():
@@ -57,7 +23,7 @@ def clearTasks():
     sqlInput = "DELETE from routes WHERE routeComplete = 0"
 
     #run the SQL statement
-    sendStatement(sqlInput)
+    dataInteract.sendStatement(sqlInput)
 
 # function to query the database for current landscape
 def mapLandscape():
@@ -68,7 +34,7 @@ def mapLandscape():
     sqlInput = "SELECT xLoc, yLoc, zLoc FROM locations WHERE entityID != 1;"
     
     #run the SQL statement
-    myresult = sendRequest(sqlInput)
+    myresult = dataInteract.sendRequest(sqlInput)
 
     return myresult
 
@@ -80,7 +46,7 @@ def findPattern(patternName):
     sqlInput = "SELECT pixelLocX, pixelLocY, pixelLocZ FROM patternPixels INNER JOIN patterns ON patternPixels.patternID = patterns.patternID WHERE patterns.patternName = '" + patternName + "';"
 
     #run the SQL statement
-    myresult = sendRequest(sqlInput)
+    myresult = dataInteract.sendRequest(sqlInput)
 
     return myresult
 

@@ -1,3 +1,7 @@
+#database connection information. hostname, username, password, database name.
+#change to ask user for username and password before implimentation.
+databaseHost = ["localhost", "root", "letmeinnow", "landscape"]
+
 # function to send an SQL statement to the database
 def sendStatement(sqlInput):
    #connect to the database
