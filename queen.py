@@ -90,6 +90,7 @@ def updateTime():
         currentTime = now.strftime("%H:%M")
         print(currentTime)
         timeArray = numpy.zeros((5, 25)) #25 wide by 5 tall
+
         #for each digit in currentTime, grab the pattern and splice them together into an array
         digitNum = 0
         for letter in currentTime:
@@ -120,6 +121,7 @@ def updateTime():
         xFieldSize = xMax - xMin
         yFieldSize = yMax - yMin
 
+        
 
         #find differences between what the landscape looks like and the built pattern
         
