@@ -454,4 +454,43 @@ INSERT INTO patternPixels (patternID, pixelLocX, pixelLocY, pixelLocZ) VALUES (1
 -- ------------------------------------------------------------------------------------------
 
 
--- stuff
+-- function to find the entityID at a specifix x, y, z location and add it to the routes 
+-- to be removed
+DELIMITER //
+CREATE PROCEDURE removePixel(IN xLoc INT, yLoc INT, zLoc INT)
+BEGIN
+    SELECT entityID FROM entities
+
+    more things go here
+
+END //
+DELIMITER ;
+
+
+
+
+
+-- shows what entities are in what locations at the current time
+CREATE TABLE IF NOT EXISTS locations (
+    xLoc int NOT NULL,
+    yLoc int NOT NULL,
+    zLoc int NOT NULL,
+    entityID int NOT NULL,
+    PRIMARY KEY (xLoc, yLoc, zLoc)
+);
+
+-- lists the entities that exist on the landscape
+CREATE TABLE IF NOT EXISTS entities (
+    entityID int NOT NULL AUTO_INCREMENT,
+    entityName char(255) NOT NULL,
+    entityType int NOT NULL, -- either "visible" or "invisible"
+    PRIMARY KEY (entityID)
+);
+
+-- lists type of entities that can exist
+CREATE TABLE IF NOT EXISTS entityType (
+    typeID int NOT NULL AUTO_INCREMENT,
+    typeName char(255) NOT NULL,
+    visible binary NOT NULL,
+    PRIMARY KEY (typeID)
+);

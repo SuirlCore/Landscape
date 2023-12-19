@@ -3,6 +3,7 @@ from datetime import datetime
 import threading                    #used to create multiple threads for event based programming.
 import keyboard
 import numpy
+import math
 
 # modules from same folder
 import dataMove
@@ -48,6 +49,19 @@ def mapSize():
 
     return myresult
 
+# function to query what is currently in the field
+def mapField(xMin, xMax, yMin, yMax):
+    print("mapping the field.")
+
+    #create the SQL statement
+    #entityID for "pixel" is "4"
+    sqlInput = "SELECT xLoc, yLoc, zLoc FROM locations WHERE (entityID = 4) AND (xLoc BETWEEN " + xMin + " AND" + xMax + ") AND (yLoc BETWEEN " + yMin + " AND " + yMax + ");"
+
+    #run the SQL statement
+    myresult = dataInteract.sendRequest(sqlInput)
+
+    return myresult
+
 # function to grab a pattern from the database
 def findPattern(patternName):
     print("Pulling information from the database")
@@ -59,6 +73,17 @@ def findPattern(patternName):
     myresult = dataInteract.sendRequest(sqlInput)
 
     return myresult
+
+#function to send a list of coordinates to remove pixels from
+def removePixel(xLoc, yLoc, zLoc):
+    print("allocating drones")
+
+    #create SQL statement to run a SQL stored procedure. Finds the entityID at a specific location
+    #and adds that ID to the routes to be removed
+    sqlInput = "removePixel(" + xLoc + ", " + yLoc + ", " + zLoc + ");"
+
+    #run the SQL statement
+    dataInteract.sendStatement(sqlInput)
 
 # --------------------------------------------
 # multi threading functions ------------------
@@ -89,7 +114,7 @@ def updateTime():
         now = datetime.datetime.now()
         currentTime = now.strftime("%H:%M")
         print(currentTime)
-        timeArray = numpy.zeros((5, 25)) #25 wide by 5 tall
+        timeArray = numpy.zeros((25, 5)) #25 wide by 5 tall
 
         #for each digit in currentTime, grab the pattern and splice them together into an array
         digitNum = 0
@@ -120,16 +145,31 @@ def updateTime():
         #find the size of the current landscape, and increase the pattern size to match the landscape
         xFieldSize = xMax - xMin
         yFieldSize = yMax - yMin
-
         
+        xDif = xMax - 25
+        yDif = yMax - 5
+        timeOnField = numpy.zeros((xFieldSize, yFieldSize))
+
+        xLoc = 0
+        yLoc = 0
+        for xVal in timeArray:
+            print(xVal)
+            for yVal in xVal:
+                if yVal == 1:
+                    timeOnField[(xLoc + (xDif // 2)), (yLoc + (yDif // 2))] = 1
+                    yLoc = yLoc + 1
+            xLoc = xLoc + 1
 
         #find differences between what the landscape looks like and the built pattern
-        
-        #generate tasks to remove blocks not needed
-        
+        # timeOnField is an x, y array map of 0's and 1's coresponding to pixels where 1's are.
+        # currentField is a list of x, y, z coordinates where pixels exist on the field
+        currentField = mapField(xMin, xMax, yMin, yMax)
+
+        for record in currentField:
+            if timeOnField[record[0], record[1]] == 0:
+                 removePixel(record[0], record[1], record[2])
+
         #generate tasks to add blocks that are needed
-        
-        #upload all tasks to the database
 
         #if user input task is complete, finish this task after a loop is complete
         if inputThread.is_alive() == False:
