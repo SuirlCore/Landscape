@@ -457,10 +457,15 @@ INSERT INTO patternPixels (patternID, pixelLocX, pixelLocY, pixelLocZ) VALUES (1
 -- function to find the entityID at a specifix x, y, z location and add it to the routes 
 -- to be removed
 DELIMITER //
-CREATE PROCEDURE removePixel(IN xLoc INT, yLoc INT, zLoc INT)
+CREATE PROCEDURE removePixel(IN xLocIn INT, yLocIn INT, zLocIn INT)
 BEGIN
-    SELECT entityID FROM entities
+    -- find the entityID at a location
+    SET @currentEntityID = (SELECT entityID FROM entities WHERE (xLoc = xLocIn) AND (yLoc = yLocIn) AND (zLoc = zLocIn));
 
+    -- find an empty spot on the warehouse
+    SET @emptySpot = (SELECT xLoc, yLoc, zLoc )
+    
+    -- insert a task to move the entityID to the empty spot
     more things go here
 
 END //
