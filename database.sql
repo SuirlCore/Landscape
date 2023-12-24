@@ -16,11 +16,12 @@ USE landscape;
 
 -- shows what entities are in what locations at the current time
 CREATE TABLE IF NOT EXISTS locations (
+    locID int NOT NULL AUTO_INCREMENT,
     xLoc int NOT NULL,
     yLoc int NOT NULL,
     zLoc int NOT NULL,
     entityID int NOT NULL,
-    PRIMARY KEY (xLoc, yLoc, zLoc)
+    PRIMARY KEY (locID)
 );
 
 -- lists the entities that exist on the landscape
@@ -462,10 +463,14 @@ BEGIN
     -- find the entityID at a location
     SET @currentEntityID = (SELECT entityID FROM entities WHERE (xLoc = xLocIn) AND (yLoc = yLocIn) AND (zLoc = zLocIn));
 
+    -- find warehouse borders
+
     -- find an empty spot on the warehouse
-    SET @emptySpot = (SELECT xLoc, yLoc, zLoc )
+    SET @emptySpot = (SELECT MAX(locID) FROM locations WHERE (xLoc)
+    -- x y and z loc != 4 and between warwhouse borders
     
     -- insert a task to move the entityID to the empty spot
+
     more things go here
 
 END //
