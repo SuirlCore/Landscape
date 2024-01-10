@@ -19,7 +19,7 @@ def clearTasks():
     print("clearing the queue")
 
     #create SQL statement
-    sqlInput = "DELETE from routes WHERE routeComplete = 0"
+    sqlInput = "DELETE from routes WHERE routeComplete = 0;"
 
     #run the SQL statement
     dataInteract.sendStatement(sqlInput)
@@ -42,7 +42,7 @@ def mapSize():
     print("pinging database for cornerstones.")
 
     #create the SQL statement
-    sqlInput = "SELECT (xLoc, yLoc, zLoc) FROM locations WHERE entityID = 5"
+    sqlInput = "SELECT (xLoc, yLoc, zLoc) FROM locations WHERE entityID = 5;"
 
     #run the SQL statement
     myresult = dataInteract.sendRequest(sqlInput)
@@ -74,7 +74,7 @@ def findPattern(patternName):
 
     return myresult
 
-#function to send a list of coordinates to remove pixels from
+#function to send a list of coordinates to remove pixels from the field
 def removePixel(xLoc, yLoc, zLoc):
     print("allocating drones")
 
