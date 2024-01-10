@@ -458,7 +458,7 @@ INSERT INTO patternPixels (patternID, pixelLocX, pixelLocY, pixelLocZ) VALUES (1
 -- function to find the entityID at a specifix x, y, z location and add it to the routes 
 -- to be removed
 DELIMITER //
-CREATE PROCEDURE removePixel(IN xLocIn INT, yLocIn INT, zLocIn INT)
+CREATE PROCEDURE removePixel(IN xLocIn INT, IN yLocIn INT, IN zLocIn INT)
 BEGIN
     -- find the entityID at a location
     SET @currentEntityID = (SELECT entityID FROM entities WHERE (xLoc = xLocIn) AND (yLoc = yLocIn) AND (zLoc = zLocIn));
