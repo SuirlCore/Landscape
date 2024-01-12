@@ -61,11 +61,19 @@ function list:
     drone.py:
       
     dataInteract.py:
-      
+      sendStatement(sqlInput):
+        takes an sql statement in and sends it to the database to be ran.
+      sendRequest(sqlInput):
+        takes an sql statement in that requires a response table for the database to run.
+        returns result
     dataMove.py:
       
   sql:
     database.sql:
-  
+      removePixel(xLocIn, yLocIn, zLocIn):
+        takes the coordinates for a pixel to be removed and adds a task to remove it.
+        returns nothing.
+        
+        
   viewer.?
     
