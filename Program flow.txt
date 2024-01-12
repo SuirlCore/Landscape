@@ -1,9 +1,35 @@
+overview:
+this system can be ran all on the same computer, or multiple computers on the same network.
+A mySQL server holds the database which all instances connect to, and acts as the server for the whole system.
+The database holds information for locations of objects on a 3d plane. Objects include: 
+"pixels" - boxes that can be moved around the field. collections of pixels form pictures and characters
+"queen" - generates tasks to move pixels, as well as completes tasks.
+"drone" - moves around the field picking up pixels and moving them to other locations based on task needs.
+"field boundry"
+"warehouse boundry"
+
 files:
 database.sql
+  sql file to create the database. This file is ran on the mySQL server once.
+  Creates tables, keys, and stored procedures needed for the system.
+  Also inputs starting values into the tables.
 queen.py
+  This program is ran as one instance. There are multiple threads in this program.
+  -one thread looks for the user to hit the 'q' key, which ends that thread.
+  -the second thread creates tasks and loads them on the database. after each loop,
+  it checks for the user input thread to still be running, if that thread is done, 
+  it quits this thread.
+  -a third thread will be open so that the queen can act as a drone as well,
+  collecting tasks and completing them.
 drone.py
+  This program is ran with multiple instances. Like the queen, this has multiple 
+  threads going at once.
+  -one thread looks for the user to hit the 'q' key, which ends that thread.
+  -the second thread looks for tasks from the database that need completed, and 
+  completes them.
 dataInteract.py
   holds functions to interact with the database.
   broken out so that it can be included in drone and queen files.
 dataMove.py
-
+  holds functions to update positions of objects in the database.
+  broken out so that it can be included in drone and queen files.
