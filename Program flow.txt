@@ -2,11 +2,25 @@ overview:
 this system can be ran all on the same computer, or multiple computers on the same network.
 A mySQL server holds the database which all instances connect to, and acts as the server for the whole system.
 The database holds information for locations of objects on a 3d plane. Objects include: 
-"pixels" - boxes that can be moved around the field. collections of pixels form pictures and characters
-"queen" - generates tasks to move pixels, as well as completes tasks.
-"drone" - moves around the field picking up pixels and moving them to other locations based on task needs.
-"field boundry"
-"warehouse boundry"
+  "pixels" - boxes that can be moved around the field. collections of pixels form pictures and characters
+  "queen" - generates tasks to move pixels, as well as completes tasks.
+  "drone" - moves around the field picking up pixels and moving them to other locations based on task needs.
+  "field boundry" - 4 corner posts mark the edges of the field that pixels can be placed on.
+  "warehouse boundry" - 4 corner posts mark the edges where extra pixels are held when not in use.
+Current implementation has the queen generate new tasks once a minute to move the pixels on the screen 
+to show the current time.
+
+planned versions:
+1.0: queen and drones move pixels around the field on the database to update the time, acting as a clock.
+     A viewer program displays the current field positons
+2.0: system moves to a physical form. A grid of wires is built to hang on the wall. Pixels are physical blocks
+     that hang on the grid. each square on the grid will be 1-2 inches on a side, whatever works for how small the robots can be built.
+     queen and drone programs are ran on individual raspberry pi's, which are built on small
+     car like robots that climb around the grid, picking up the pixels and phyically moving them to different spots
+     on the field.
+2.5: system for interaction with the user. user moves special blocks to different spots on the field to ask the queen to display different things?
+3.0: additional tasks are implemented. chess playing, building small pixel art images, multiple images and text displayed
+     on the field at the same time, rss feeds, etc.
 
 files:
 database.sql
@@ -33,3 +47,8 @@ dataInteract.py
 dataMove.py
   holds functions to update positions of objects in the database.
   broken out so that it can be included in drone and queen files.
+
+files needed:
+viewer.?
+  a program that queries the database and displays the current location of items on the field
+  and displays them on a grid on the screen.
