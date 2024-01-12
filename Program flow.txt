@@ -48,7 +48,24 @@ dataMove.py
   holds functions to update positions of objects in the database.
   broken out so that it can be included in drone and queen files.
 
-files needed:
+files needed fo4 v1.0:
 viewer.?
   a program that queries the database and displays the current location of items on the field
   and displays them on a grid on the screen.
+  this could be in any language, i was thinking javascript on an html page 
+  
+function list:
+  python:
+    queen.py:
+      
+    drone.py:
+      
+    dataInteract.py:
+      
+    dataMove.py:
+      
+  sql:
+    database.sql:
+  
+  viewer.?
+    
