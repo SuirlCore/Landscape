@@ -57,7 +57,30 @@ viewer.?
 function list:
   python:
     queen.py:
+      clearTasks():
+        removes all incomplete tasks on the database.
+        returns nothing
+      mapLandscape():
+        pulls x,y,z coordinates for all entities on the field
+        returns result table
+      mapSize():
+        finds the corners of the field
+        returns result
+      mapField(xMin, xMax, yMin, yMax):
+        returns coordinates of all entities within x and y bounds entered
+      findPattern(patternName):
+        pulls pixel locations for an individual patttern and returns them
+      removePixel(xLoc, yLoc, zLoc):
+        sends a request to the database to run the removePixel stored procedure.
+        returns nothing.
       
+      userInput():
+        runs an infinite loop looking for the user to press the 'q' key
+      updateTime():
+        runs an infinite loop until the userInput thread is completed.
+        every minute the function grabs the hours and minutes and parses them into pattterns.
+        it checks the currrent landscape and decides which pixels need removed, and which need added.
+        it then sends tasks to the database for moving each pixel that needs moved.
     drone.py:
       
     dataInteract.py:
