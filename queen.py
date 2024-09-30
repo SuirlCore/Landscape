@@ -8,6 +8,7 @@ import math
 # modules from same folder
 import dataMove
 import dataInteract
+import drone
 
 
 # --------------------------------------------
@@ -16,6 +17,7 @@ import dataInteract
 
 # function to remove incomplete tasks on the database
 def clearTasks():
+    !!!! should this function clear tasks that are in progress?
     print("clearing the queue")
 
     #create SQL statement
@@ -122,6 +124,7 @@ def updateTime():
             currentPattern = findPattern(letter)
             for line in currentPattern:
                 timeArray[line[(0 + digitNum * 5)], line[1]] = 1
+                !!!! this doesnt feel right...
             digitNum = digitNum + 1
 
         #query database to ping the landscape size, build another array
@@ -168,6 +171,7 @@ def updateTime():
         for record in currentField:
             if timeOnField[record[0], record[1]] == 0:
                  removePixel(record[0], record[1], record[2])
+                 !!!! this doesnt feel right
 
         #generate tasks to add blocks that are needed
 
@@ -176,6 +180,8 @@ def updateTime():
             break
 
 # drone thread to look for tasks and complete them
+    #pull the run function from drone.py
+
     #if user input task is complete, finish this task after a loop is complete
 
 # --------------------------------------------
@@ -185,15 +191,18 @@ def updateTime():
 #create thread variable functions attached to the threading functions
 inputThread = threading.Thread(target=userInput, name='inputThread')
 updateTimeThread = threading.Thread(target=updateTime, name='updateTimeThread')
+#!!!! create drone thread
 
 #start the threads
 print("Looking for user input thread starting.\n")
 inputThread.start()
 print("starting the updateTime thread")
 updateTimeThread.start()
+#!!!! start drone thread
 
 #join the threads back into the main program when complete
 inputThread.join()
 updateTimeThread.join()
+#!!!! join drone thread
 
 print("all tasks complete, shutting down.\n")
