@@ -17,7 +17,7 @@ import drone
 
 # function to remove incomplete tasks on the database
 def clearTasks():
-    !!!! should this function clear tasks that are in progress?
+    !!!! should this function clear tasks that are in progress
     print("clearing the queue")
 
     #create SQL statement
